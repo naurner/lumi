@@ -161,6 +161,9 @@ main, .footer { position: relative; z-index: 1; }
 /* ---------- Каталог ---------- */
 .albums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .albums .ph { aspect-ratio: 1; }
+/* Первая картинка каталога — крупная, на два ряда: сетка не выглядит монотонной */
+.albums .zoom:first-child { grid-column: span 2; grid-row: span 2; }
+.albums .zoom:first-child .ph { height: 100%; }
 @media (max-width: 860px) { .albums { grid-template-columns: 1fr 1fr; } }
 
 /* ---------- Пакеты ---------- */

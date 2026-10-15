@@ -54,14 +54,18 @@ window.LUMI = {
   // Каталог: только мокапы (Desktop/Образцы виньеток/Мокапы).
   // kind — только для заглушки, пока нет фото: cover | spread | portrait | group.
   albums: [
+    { img: "img/albums/split-cover-rb.jpg", kind: "cover", label: "Split — обложка" },
+    { img: "img/albums/flight-cover-bw.jpg", kind: "cover", label: "Flight — обложка" },
+    { img: "img/albums/freedom-cover-bb.jpg", kind: "cover", label: "Freedom — обложка" },
     { img: "img/albums/freedom-split-books.jpg", kind: "cover", label: "Freedom и Split" },
+    { img: "img/albums/split-friends-rb.jpg", kind: "spread", label: "Split — друзья" },
+    { img: "img/albums/flight-grid-bw.jpg", kind: "spread", label: "Flight — сетка класса" },
+    { img: "img/albums/freedom-friends-bb.jpg", kind: "spread", label: "Freedom — мои друзья" },
+    { img: "img/albums/split-personal.jpg", kind: "spread", label: "Split — личный разворот" },
     { img: "img/albums/flight-cover.jpg", kind: "cover", label: "Flight — обложка" },
     { img: "img/albums/split-cover.jpg", kind: "cover", label: "Split — обложка" },
     { img: "img/albums/freedom-cover.jpg", kind: "cover", label: "Freedom — обложка" },
-    { img: "img/albums/split-personal.jpg", kind: "spread", label: "Split — личный разворот" },
-    { img: "img/albums/split-friends.jpg", kind: "spread", label: "Split — друзья" },
     { img: "img/albums/split-best.jpg", kind: "spread", label: "Split — самые лучшие" },
-    { img: "img/albums/flight-grid.jpg", kind: "spread", label: "Flight — сетка класса" },
     { img: "img/albums/flight-class.jpg", kind: "spread", label: "Flight — наш класс" },
     { img: "img/albums/flight-friends.jpg", kind: "spread", label: "Flight — мои друзья" },
     { img: "img/albums/flight-graduates.jpg", kind: "spread", label: "Flight — ура, мы выпускники" },

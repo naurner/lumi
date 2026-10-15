@@ -233,6 +233,9 @@ main, .footer { position: relative; z-index: 1; }
 .q:nth-child(1), .q:nth-child(2) { grid-column: span 3; }
 .q:nth-child(1) .ph, .q:nth-child(2) .ph { aspect-ratio: 16 / 9; }
 .q .ph { aspect-ratio: 4 / 3; }
+/* Настоящие фото и мокапы — целиком, в своих пропорциях, без обрезки */
+.quality .q .ph--img { aspect-ratio: auto; }
+.q .ph--img img { height: auto; }
 .q h3 { margin-bottom: 6px; }
 .q p { color: var(--muted); font-size: 15px; }
 @media (max-width: 860px) { .quality { grid-template-columns: 1fr 1fr; } .q, .q:nth-child(1), .q:nth-child(2) { grid-column: auto; } }

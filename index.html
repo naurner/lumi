@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumi Vinetka</title>
+  <meta name="description" content="Создаём школьные альбомы и виньетки под ключ — от фотосъёмки до готового альбома.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+  <div class="watermark" aria-hidden="true"><span>L</span><span>U</span><span>M</span><span>I</span></div>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__in">
+      <a class="logo" href="#top" aria-label="Lumi Vinetka — наверх"><img src="img/logo.svg" alt="LUMI" width="104" height="46"></a>
+      <nav class="nav__links" id="navLinks" aria-label="Разделы">
+        <a href="#catalog">Альбомы</a>
+        <a href="#works">Работы</a>
+        <a href="#process">Как мы работаем</a>
+        <a href="#packages">Цены</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#faq">Вопросы</a>
+      </nav>
+      <a class="btn btn--small nav__cta" href="#request"><span class="nav__cta-long">Оставить заявку</span><span class="nav__cta-short">Заявка</span></a>
+      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks"><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="hero__text">
+        <h1>Истории школьных лет, которые останутся навсегда</h1>
+        <p class="lead">Создаём школьные альбомы под ключ — от фотосъёмки до готового альбома.</p>
+        <div class="hero__cta">
+          <a class="btn" href="#catalog">Посмотреть альбомы</a>
+          <a class="btn btn--ghost" href="#packages">Рассчитать стоимость</a>
+        </div>
+      </div>
+      <div class="hero__album" id="heroAlbum" aria-label="Школьный альбом"></div>
+      <ul class="advantages" id="advantages"></ul>
+    </section>
+
+    <section class="section wrap" id="catalog">
+      <div class="head">
+        <h2>Каталог альбомов</h2>
+        <p>Наши альбомы, макеты и мокапы — так выглядит то, что получит ваш класс.</p>
+      </div>
+      <div class="albums" id="albumGrid"></div>
+    </section>
+
+    <section class="section wrap" id="works">
+      <div class="head">
+        <h2>Наши работы</h2>
+        <p>Готовые альбомы целиком — портреты, общие кадры класса и развороты.</p>
+      </div>
+      <div class="projects" id="projects"></div>
+
+      <div class="split" id="worksExtra">
+        <div id="baBlock">
+          <h3>Ретушь: до и после</h3>
+          <p class="muted">Потяните ползунок — так мы обрабатываем каждый портрет.</p>
+          <div class="ba" id="beforeAfter">
+            <div class="ba__img ba__before" id="baBefore"></div>
+            <div class="ba__img ba__after" id="baAfter"></div>
+            <div class="ba__line" aria-hidden="true"></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Сравнить до и после" id="baRange">
+            <span class="ba__tag ba__tag--l">До</span><span class="ba__tag ba__tag--r">После</span>
+          </div>
+        </div>
+        <div id="videoBlock">
+          <h3>Видео</h3>
+          <p class="muted">Как выглядит готовый альбом и как проходит съёмка.</p>
+          <div class="videos" id="videos"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="process">
+      <div class="head">
+        <h2>Как мы работаем</h2>
+        <p>Всю организацию берём на себя: от договорённости со школой до доставки альбомов.</p>
+      </div>
+      <ol class="steps" id="steps"></ol>
+    </section>
+
+    <section class="section wrap" id="packages">
+      <div class="head">
+        <h2>Пакеты съёмок</h2>
+        <p>Выберите готовый пакет или соберите свой в калькуляторе. Точную сумму зафиксируем в договоре.</p>
+      </div>
+      <div class="packages" id="packageList"></div>
+
+      <form class="calc" id="calc" novalidate>
+        <h3 class="calc__title">Свой пакет</h3>
+        <div class="calc__cols">
+          <div class="calc__col">
+            <div class="field">
+              <label class="field__label" for="N">Количество человек в классе</label>
+              <div class="stepper" id="N-stepper">
+                <button type="button" id="N-minus" aria-label="Меньше">−</button>
+                <input type="number" id="N" min="1" step="1" inputmode="numeric" placeholder="Введите число">
+                <button type="button" id="N-plus" aria-label="Больше">+</button>
+              </div>
+              <p class="field__error" id="N-error" hidden>Введите целое число от 1</p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="R">Количество разворотов <output id="R-value">3</output></label>
+              <input type="range" id="R" min="3" max="10" step="1" value="3">
+              <div class="ticks" aria-hidden="true"><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+            </div>
+
+            <div class="options">
+              <label class="option"><input type="checkbox" id="school" checked>
+                <span class="option__title">Съёмка в школе</span></label>
+              <label class="option"><input type="checkbox" id="ribbons">
+                <span class="option__title">Выпускные ленты
+                  <span class="option__hint">Ленты в аренду на время съёмки</span></span></label>
+              <label class="option"><input type="checkbox" id="transfer">
+                <span class="option__title">Трансфер до локаций
+                  <span class="option__lock">Выберите выездную локацию</span></span></label>
+            </div>
+          </div>
+
+          <div class="calc__col">
+            <fieldset class="group">
+              <legend>Выездные локации <span>до <span class="loc-max"></span></span></legend>
+              <div class="options">
+                <label class="option"><input type="checkbox" id="studio" class="loc">
+                  <span class="option__title">Фотостудия
+                    <span class="option__hint">3 часа: 2 часа циклорама, 1 час интерьер</span>
+                    <span class="option__lock">Уже выбрано <span class="loc-max"></span> локации</span></span></label>
+                <label class="option"><input type="checkbox" name="outdoorPlace" value="Гольф-клуб" class="loc">
+                  <span class="option__title">Гольф-клуб
+                    <span class="option__lock">Уже выбрано <span class="loc-max"></span> локации</span></span></label>
+                <label class="option"><input type="checkbox" name="outdoorPlace" value="Теннисный корт" class="loc">
+                  <span class="option__title">Теннисный корт
+                    <span class="option__lock">Уже выбрано <span class="loc-max"></span> локации</span></span></label>
+                <label class="option"><input type="checkbox" name="outdoorPlace" value="Ранчо" class="loc">
+                  <span class="option__title">Ранчо
+                    <span class="option__lock">Уже выбрано <span class="loc-max"></span> локации</span></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="group">
+              <legend>Особые фотосессии</legend>
+              <div class="options">
+                <label class="option"><input type="checkbox" id="heli">
+                  <span class="option__title">Фотосессия возле вертолёта</span></label>
+                <label class="option"><input type="checkbox" id="issyk">
+                  <span class="option__title">Иссык-Куль и каньоны Конорчек
+                    <span class="option__hint">1 день: утром выезжаем, вечером возвращаемся</span>
+                    <span class="option__lock">Доступно от <span id="issyk-from"></span> разворотов</span></span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <aside class="summary" aria-live="polite">
+            <div class="summary__price">
+              <p class="summary__placeholder" id="calcPlaceholder">Укажите количество человек — и увидите цену</p>
+              <div id="calcResult" hidden>
+                <span class="summary__label">С одного человека</span>
+                <strong id="perPerson"></strong>
+              </div>
+            </div>
+            <a class="btn summary__cta" href="#request" id="calcToRequest">Оставить заявку</a>
+            <p class="summary__note">Точную сумму зафиксируем в договоре</p>
+          </aside>
+        </div>
+      </form>
+    </section>
+
+    <section class="section wrap request" id="request">
+      <div class="request__intro">
+        <h2>Оставьте заявку</h2>
+        <p class="request__lead">Ни к чему не обязывает: перезвоним, ответим на вопросы и посчитаем точную стоимость.</p>
+        <ol class="request__next">
+          <li>Перезвоним в течение дня</li>
+          <li>Подберём пакет под класс и бюджет</li>
+          <li>Договоримся о дате съёмки</li>
+        </ol>
+      </div>
+      <form class="form" id="requestForm" novalidate>
+        <div class="form__field">
+          <label for="f-name">Имя</label>
+          <input id="f-name" name="name" autocomplete="name" required aria-describedby="f-name-err">
+          <p class="form__err" id="f-name-err"></p>
+        </div>
+        <div class="form__field">
+          <label for="f-phone">Телефон</label>
+          <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+996 700 123 456" aria-describedby="f-phone-err">
+          <p class="form__err" id="f-phone-err"></p>
+        </div>
+        <div class="form__field">
+          <label for="f-school">Школа</label>
+          <input id="f-school" name="school" required placeholder="Например, гимназия № 5" aria-describedby="f-school-err">
+          <p class="form__err" id="f-school-err"></p>
+        </div>
+        <div class="form__field">
+          <label for="f-grade">Класс</label>
+          <input id="f-grade" name="grade" required placeholder="11 «А»" aria-describedby="f-grade-err">
+          <p class="form__err" id="f-grade-err"></p>
+        </div>
+        <div class="form__field">
+          <label for="f-count">Учеников в классе <span class="form__opt">необязательно</span></label>
+          <input id="f-count" name="count" type="number" min="1" max="200" inputmode="numeric">
+        </div>
+        <div class="form__field">
+          <label for="formType">Пакет</label>
+          <select name="type" id="formType"></select>
+        </div>
+        <input type="hidden" name="estimate" id="formEstimate">
+        <label class="hp" aria-hidden="true">Сайт<input name="website" id="f-website" tabindex="-1" autocomplete="off"></label>
+        <p class="form__estimate form__wide" id="formEstimateLine" hidden></p>
+        <button class="btn form__wide" type="submit" id="formSubmit">Отправить заявку</button>
+        <p class="form__error form__wide" id="formError" role="alert"></p>
+        <p class="form__legal form__wide">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+      </form>
+      <div class="form form--done" id="formDone" hidden tabindex="-1">
+        <h3>Заявка отправлена</h3>
+        <p>Перезвоним в течение дня. Если удобнее — напишите нам в WhatsApp или Instagram.</p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="reviews">
+      <div class="head">
+        <h2 id="reviewsTitle">Что говорят родители</h2>
+      </div>
+      <div class="reviews" id="reviewList"></div>
+      <div class="videos videos--reviews" id="videoReviews" hidden></div>
+      <div class="trust">
+        <div>
+          <h3>Школы, с которыми мы работали</h3>
+          <ul class="schools" id="schoolList"></ul>
+        </div>
+        <div>
+          <h3>Гарантии</h3>
+          <ul class="guarantees" id="guaranteeList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="quality">
+      <div class="head">
+        <h2>Качество и материалы</h2>
+        <p>Из чего сделан альбом и почему он переживёт выпускной.</p>
+      </div>
+      <div class="quality" id="qualityList"></div>
+    </section>
+
+    <section class="section wrap" id="locations">
+      <div class="head">
+        <h2>Локации для съёмок</h2>
+        <p>Снимаем там, где удобно классу.</p>
+      </div>
+      <div class="locations" id="locationList"></div>
+    </section>
+
+    <section class="section wrap" id="team">
+      <div class="head">
+        <h2>Наша команда</h2>
+        <p>Люди, которые будут снимать ваших детей и собирать альбом.</p>
+      </div>
+      <div class="team" id="teamList"></div>
+    </section>
+
+    <section class="section wrap" id="faq">
+      <div class="head">
+        <h2>Частые вопросы</h2>
+      </div>
+      <div class="faq" id="faqList"></div>
+    </section>
+    <section class="section wrap">
+      <div class="cta-final">
+        <div>
+          <h2>Остались вопросы?</h2>
+          <p>Напишите нам — поможем выбрать пакет и ответим на всё про съёмку.</p>
+        </div>
+        <div class="cta-final__actions">
+          <a class="btn" href="#request">Оставить заявку</a>
+          <a class="btn btn--ghost" id="waLink" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn--ghost" id="igLink" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <div class="footer__brand">
+      <img class="logo logo--footer" src="img/logo.svg" alt="LUMI" width="136" height="60">
+      <p id="footerCity"></p>
+    </div>
+    <nav class="footer__nav" aria-label="Разделы сайта">
+      <a href="#catalog">Альбомы</a>
+      <a href="#works">Работы</a>
+      <a href="#packages">Цены</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#request">Заявка</a>
+    </nav>
+    <div class="footer__contacts">
+      <a id="footerPhone"></a>
+      <a id="footerWa" target="_blank" rel="noopener">WhatsApp</a>
+      <a id="footerIg" target="_blank" rel="noopener"></a>
+      <a id="footerEmail"></a>
+    </div>
+    <p class="footer__copy" id="footerCopy"></p>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Закрыть">×</button>
+    <div class="lightbox__img" id="lightboxImg"></div>
+    <p id="lightboxCaption"></p>
+  </dialog>
+
+  <script src="content.js?v=3"></script>
+  <script src="calc.js?v=3"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>

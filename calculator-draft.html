@@ -1,0 +1,318 @@
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Калькулятор выпускного альбома</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --card: #ffffff;
+      --text: #1f1d1a;
+      --muted: #8a847b;
+      --line: #e7e1d8;
+      --accent: #b8865b;
+      --accent-soft: #f5ece2;
+      --error: #c8463d;
+      --error-soft: #fbe9e7;
+      --field: #ffffff;
+      --control-border: #cfc6ba;
+      --hover-border: #d6c7b5;
+      --btn-hover: #ecdccb;
+      --btn-active: #e2ccb6;
+      --btn-disabled-fg: #cdbfae;
+      --btn-disabled-bg: #faf6f1;
+      --disabled-bg: #faf8f5;
+      --disabled-fg: #a9a196;
+      --disabled-box: #f1ede7;
+      --check-mark: #ffffff;
+      --result-bg: #1f1d1a;
+      --result-fg: #ffffff;
+      --shadow: 0 10px 40px rgba(60, 45, 30, .08);
+      --radius: 14px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #171512; --card: #221f1b; --text: #f1ebe3; --muted: #9d958a; --line: #3a352e;
+        --accent: #d4a276; --accent-soft: #3a2e23; --error: #e57066; --error-soft: #3d2220;
+        --field: #1b1916; --control-border: #5a5249; --hover-border: #5e5245;
+        --btn-hover: #4a3a2c; --btn-active: #574433; --btn-disabled-fg: #5e554b; --btn-disabled-bg: #24211d;
+        --disabled-bg: #1e1b18; --disabled-fg: #6f675d; --disabled-box: #2a2621; --check-mark: #1b1916;
+        --result-bg: #f1ebe3; --result-fg: #1f1d1a; --shadow: 0 10px 40px rgba(0, 0, 0, .35);
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #171512; --card: #221f1b; --text: #f1ebe3; --muted: #9d958a; --line: #3a352e;
+      --accent: #d4a276; --accent-soft: #3a2e23; --error: #e57066; --error-soft: #3d2220;
+      --field: #1b1916; --control-border: #5a5249; --hover-border: #5e5245;
+      --btn-hover: #4a3a2c; --btn-active: #574433; --btn-disabled-fg: #5e554b; --btn-disabled-bg: #24211d;
+      --disabled-bg: #1e1b18; --disabled-fg: #6f675d; --disabled-box: #2a2621; --check-mark: #1b1916;
+      --result-bg: #f1ebe3; --result-fg: #1f1d1a; --shadow: 0 10px 40px rgba(0, 0, 0, .35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding-block: 40px; padding-inline: 16px;
+      font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    .calc {
+      max-width: 520px; margin: 0 auto; padding: 32px 28px;
+      background: var(--card); border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); margin: 0 0 8px;
+    }
+    h1 { font-size: 26px; line-height: 1.2; font-weight: 800; margin: 0 0 28px; }
+
+    .field { margin-bottom: 26px; }
+    .label { display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; margin-bottom: 10px; }
+    .label output { font-size: 20px; font-weight: 800; color: var(--accent); }
+
+    /* степпер количества человек */
+    .stepper {
+      display: flex; align-items: stretch; border: 1.5px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; transition: border-color .15s, box-shadow .15s;
+    }
+    .stepper:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .stepper.invalid { border-color: var(--error); box-shadow: 0 0 0 4px var(--error-soft); }
+    .stepper button {
+      flex: 0 0 56px; border: 0; background: var(--accent-soft); color: var(--accent);
+      font: inherit; font-size: 24px; font-weight: 600; cursor: pointer;
+      transition: background .15s; touch-action: manipulation; user-select: none;
+    }
+    .stepper button:hover { background: var(--btn-hover); }
+    .stepper button:active { background: var(--btn-active); }
+    .stepper button:disabled { color: var(--btn-disabled-fg); cursor: default; background: var(--btn-disabled-bg); }
+    .stepper input {
+      flex: 1; min-width: 0; padding: 12px 8px; border: 0; outline: none; text-align: center;
+      font: inherit; font-size: 24px; font-weight: 800; color: inherit; background: var(--field);
+      -moz-appearance: textfield;
+    }
+    .stepper input::-webkit-outer-spin-button,
+    .stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .stepper input::placeholder { font-size: 16px; font-weight: 500; color: var(--muted); }
+    .error { color: var(--error); font-size: 13px; margin-top: 6px; }
+
+    /* слайдер */
+    input[type=range] {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 6px; margin: 8px 0;
+      border-radius: 3px; outline: none;
+      background: linear-gradient(to right, var(--accent) var(--fill, 0%), var(--line) var(--fill, 0%));
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--field); border: 2px solid var(--accent); cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--field); border: 2px solid var(--accent); cursor: pointer;
+    }
+    .ticks { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); padding: 0 6px; }
+
+    /* опции-карточки */
+    .options { display: grid; gap: 10px; margin-bottom: 8px; }
+    .option {
+      display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px;
+      border: 1.5px solid var(--line); border-radius: var(--radius); cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .option:hover { border-color: var(--hover-border); }
+    .option:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+    .option input {
+      -webkit-appearance: none; appearance: none; flex-shrink: 0; margin: 1px 0 0;
+      width: 22px; height: 22px; border: 1.5px solid var(--control-border); border-radius: 7px; background: var(--field);
+      display: grid; place-content: center; cursor: pointer; transition: background .15s, border-color .15s;
+    }
+    .option input::after {
+      content: ""; width: 10px; height: 6px; margin-top: -3px;
+      border: solid var(--check-mark); border-width: 0 0 2px 2px; transform: rotate(-45deg) scale(0);
+      transition: transform .15s;
+    }
+    .option input:checked { background: var(--accent); border-color: var(--accent); }
+    .option input:checked::after { transform: rotate(-45deg) scale(1); }
+    .option input:focus-visible { box-shadow: 0 0 0 4px var(--accent-soft); }
+    .option-title { font-weight: 600; line-height: 1.35; }
+    .hint { display: block; color: var(--muted); font-size: 13px; font-weight: 400; margin-top: 3px; }
+    .option:has(input:disabled) { cursor: not-allowed; background: var(--disabled-bg); border-style: dashed; }
+    .option:has(input:disabled):hover { border-color: var(--line); }
+    .option:has(input:disabled) .option-title > :not(.lock) { opacity: .5; }
+    .option:has(input:disabled) .option-title { color: var(--disabled-fg); }
+    .option input:disabled { cursor: not-allowed; background: var(--disabled-box); }
+    .lock {
+      display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-soft);
+    }
+    .option:not(:has(input:disabled)) .lock { display: none; }
+
+    .section { font-size: 18px; font-weight: 800; margin: 28px 0 2px; }
+    .section-hint { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+    [hidden] { display: none !important; }
+
+    .included { margin: 18px 0 0; font-size: 13px; color: var(--muted); }
+
+    /* итог */
+    .result {
+      margin-top: 24px; padding: 22px 24px; border-radius: 16px;
+      background: var(--result-bg); color: var(--result-fg);
+    }
+    .result-label { font-size: 13px; opacity: .65; margin-bottom: 4px; }
+    .result-price { font-size: 36px; font-weight: 800; letter-spacing: -.01em; }
+    .placeholder { font-size: 15px; opacity: .75; }
+
+    @media (max-width: 480px) {
+      body { padding-block: 16px; }
+      .calc { padding: 24px 18px; }
+      h1 { font-size: 22px; }
+      .result-price { font-size: 30px; }
+    }
+  </style>
+
+  <form class="calc" id="calc" novalidate onsubmit="return false">
+    <p class="eyebrow">Выпускной альбом</p>
+    <h1>Рассчитайте стоимость за минуту</h1>
+
+    <div class="field">
+      <label class="label" for="N">Количество человек в классе</label>
+      <div class="stepper" id="N-stepper">
+        <button type="button" id="N-minus" aria-label="Меньше">−</button>
+        <input type="number" id="N" min="1" step="1" inputmode="numeric" placeholder="Введите число" required>
+        <button type="button" id="N-plus" aria-label="Больше">+</button>
+      </div>
+      <div class="error" id="N-error" hidden>Введите целое число от 1</div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="R">Количество разворотов <output id="R-value">3</output></label>
+      <input type="range" id="R" min="3" max="10" step="1" value="3">
+      <div class="ticks"><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+    </div>
+
+    <div class="options">
+      <label class="option"><input type="checkbox" id="school" checked>
+        <span class="option-title">Съёмка в школе</span></label>
+      <label class="option"><input type="checkbox" id="ribbons">
+        <span class="option-title">Выпускные ленты
+          <span class="hint">Ленты предоставляются в аренду на время съёмки</span></span></label>
+      <label class="option"><input type="checkbox" id="transfer">
+        <span class="option-title">Трансфер до локаций
+          <span class="lock">Выберите выездную локацию ниже</span></span></label>
+    </div>
+
+    <h2 class="section">Выездные локации</h2>
+    <p class="section-hint">Можно выбрать до <span class="loc-max"></span> локаций</p>
+    <div class="options">
+      <label class="option"><input type="checkbox" id="studio" class="loc">
+        <span class="option-title">Фотостудия
+          <span class="hint">3 часа съёмки: 2 часа циклорама, 1 час интерьер</span>
+          <span class="lock">Уже выбрано <span class="loc-max"></span> локации</span></span></label>
+      <label class="option"><input type="checkbox" name="outdoorPlace" value="golf" class="loc">
+        <span class="option-title">Гольф-клуб
+          <span class="lock">Уже выбрано <span class="loc-max"></span> локации</span></span></label>
+      <label class="option"><input type="checkbox" name="outdoorPlace" value="tennis" class="loc">
+        <span class="option-title">Теннисный корт
+          <span class="lock">Уже выбрано <span class="loc-max"></span> локации</span></span></label>
+      <label class="option"><input type="checkbox" name="outdoorPlace" value="ranch" class="loc">
+        <span class="option-title">Ранчо
+          <span class="lock">Уже выбрано <span class="loc-max"></span> локации</span></span></label>
+    </div>
+
+    <h2 class="section">Особые фотосессии</h2>
+    <p class="section-hint">Запоминающиеся съёмки для всего класса</p>
+    <div class="options">
+      <label class="option"><input type="checkbox" id="heli">
+        <span class="option-title">Фотосессия возле вертолёта</span></label>
+      <label class="option" id="issyk-wrap"><input type="checkbox" id="issyk">
+        <span class="option-title">Иссык-Куль и каньоны Конорчек
+          <span class="hint">1 день: утром выезжаем, вечером возвращаемся</span>
+          <span class="lock" id="issyk-lock">Доступно от <span id="issyk-from"></span> разворотов</span></span></label>
+    </div>
+
+    <p class="included">В стоимость всегда входят работа дизайнера и виньетка классному руководителю.</p>
+
+    <div class="result" aria-live="polite">
+      <div class="placeholder" id="placeholder">Укажите количество человек, чтобы увидеть цену</div>
+      <div id="prices" hidden>
+        <div class="result-label">Стоимость с одного человека</div>
+        <div class="result-price" id="perPerson"></div>
+      </div>
+    </div>
+  </form>
+
+  <script src="calc.js"></script>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const FLAGS = ['transfer', 'school', 'studio', 'issyk', 'ribbons', 'heli'];
+    const outdoorPlaces = () =>
+      [...document.querySelectorAll('input[name=outdoorPlace]:checked')].map((el) => el.value);
+    $('issyk-from').textContent = CONFIG.issykFrom;
+    const locInputs = [...document.querySelectorAll('input.loc')];
+    document.querySelectorAll('.loc-max').forEach((el) => { el.textContent = CONFIG.maxLocations; });
+    const fmt = (n) => n.toLocaleString('ru-RU').replace(/\s/g, ' ') + ' сом';
+    let touchedN = false;
+    let hadLocation = false;
+
+    function readN() {
+      const raw = $('N').value.trim();
+      return /^\d+$/.test(raw) && Number(raw) >= 1 ? Number(raw) : null;
+    }
+
+    function update() {
+      const slider = $('R');
+      const R = Number(slider.value);
+      $('R-value').textContent = R;
+      slider.style.setProperty('--fill', ((R - slider.min) / (slider.max - slider.min)) * 100 + '%');
+
+      // Иссык-Куль доступен только при R >= порога; при уменьшении R — блокируется и сбрасывается
+      const issykAvailable = R >= CONFIG.issykFrom;
+      $('issyk').disabled = !issykAvailable;
+      if (!issykAvailable) $('issyk').checked = false;
+
+      // Не больше CONFIG.maxLocations локаций: остальные блокируются
+      const limitReached = locInputs.filter((el) => el.checked).length >= CONFIG.maxLocations;
+      locInputs.forEach((el) => { el.disabled = limitReached && !el.checked; });
+
+      // Трансфер нужен только если выбрана студия или выездная локация
+      const transferAvailable = $('studio').checked || outdoorPlaces().length > 0;
+      $('transfer').disabled = !transferAvailable;
+      if (!transferAvailable) $('transfer').checked = false;
+      // При выборе первой локации трансфер отмечается сам; снять его можно вручную
+      else if (!hadLocation) $('transfer').checked = true;
+      hadLocation = transferAvailable;
+
+      const N = readN();
+      const showError = N === null && touchedN;
+      $('N-stepper').classList.toggle('invalid', showError);
+      $('N-minus').disabled = N !== null && N <= 1;
+      $('N-error').hidden = !showError;
+
+      $('placeholder').hidden = N !== null;
+      $('prices').hidden = N === null;
+      if (N === null) return;
+
+      const answers = { N, R, outdoor: outdoorPlaces().length };
+      FLAGS.forEach((k) => { answers[k] = $(k).checked; });
+      $('perPerson').textContent = fmt(calcPrice(answers).perPerson);
+    }
+
+    // Кнопки −/+: с пустого поля начинаем с типичного размера класса
+    const N_START = 20;
+    function stepN(delta) {
+      const N = readN();
+      $('N').value = N === null ? N_START : Math.max(1, N + delta);
+      touchedN = true;
+      update();
+    }
+    $('N-minus').addEventListener('click', () => stepN(-1));
+    $('N-plus').addEventListener('click', () => stepN(1));
+
+    $('N').addEventListener('input', () => { touchedN = true; update(); });
+    $('calc').addEventListener('input', update);
+    $('calc').addEventListener('change', update);
+    update();
+  </script>

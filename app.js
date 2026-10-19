@@ -245,7 +245,11 @@
     .join("");
 
   $("locationList").innerHTML = L.locations
-    .map((l) => `<article class="loc">${photo(l, "scene")}<h3>${esc(l.name)}</h3><p>${esc(l.text)}</p></article>`)
+    .map((l) => {
+      // pos — какая часть вертикального кадра видна в горизонтальной карточке (головы не срезать)
+      const ph = l.pos ? photo(l, "scene").replace("<img ", `<img style="object-position:${esc(l.pos)}" `) : photo(l, "scene");
+      return `<article class="loc">${ph}<h3>${esc(l.name)}</h3><p>${esc(l.text)}</p></article>`;
+    })
     .join("");
 
   $("teamList").innerHTML = L.team

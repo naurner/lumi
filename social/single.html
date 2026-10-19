@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Lumi — обложка «Альбомы под ключ»</title>
+<style>
+  /* Обложка Reels 1080×1920. В сетке видна середина 1080×1440 (y 240…1680). */
+  @font-face { font-family: "Unbounded"; font-weight: 300; src: url("../print/fonts/Unbounded-300.ttf"); }
+  @font-face { font-family: "Unbounded"; font-weight: 400; src: url("../print/fonts/Unbounded-400.ttf"); }
+  @font-face { font-family: "Unbounded"; font-weight: 600; src: url("../print/fonts/Unbounded-600.ttf"); }
+  @font-face { font-family: "Manrope"; font-weight: 600; src: url("../print/fonts/Manrope-600.ttf"); }
+
+  :root { --teal: #6cc4c9; }
+  * { margin: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+
+  .c { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  .photo { position: absolute; inset: 0 0 auto 0; height: 1240px;
+    background: url("../img/live/fan.jpg") center 30% / cover; }
+  .photo::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, #000c 0%, #0000 22%, #0000 50%, #000 96%); }
+
+  .logo { margin-top: 70px; }
+  .logo img { width: 260px; display: block; }
+
+  .text { position: absolute; left: 90px; right: 60px; top: 1010px; }
+  .text h1 { font: 600 122px/1 "Unbounded"; letter-spacing: -4px; white-space: nowrap; color: #ecf1f1; text-transform: uppercase; }
+  .text h1 b { display: block; font-weight: 600; color: var(--teal); text-shadow: 0 0 60px #6cc4c966; }
+  .line { height: 4px; width: 200px; margin: 44px 0 34px; background: var(--teal); box-shadow: 0 0 24px var(--teal); }
+  .chips { display: flex; gap: 16px; flex-wrap: wrap; }
+  .chips span { border: 2px solid #366264; border-radius: 99px; padding: 14px 30px; font: 600 28px/1 "Manrope"; color: #ecf1f1; }
+</style>
+</head>
+<body>
+<div class="c">
+  <div class="photo"></div>
+  <div class="text">
+    <h1>Альбомы<b>под ключ</b></h1>
+    <div class="line"></div>
+    <div class="chips"><span>Съёмка</span><span>Дизайн</span><span>Печать</span><span>Ленты</span></div>
+    <div class="logo"><img src="../img/logo.svg" alt="LUMI"></div>
+  </div>
+</div>
+</body>
+</html>

@@ -51,7 +51,7 @@
     .map(
       (p) => `<article class="pkg${p.featured ? " pkg--featured" : ""}">
         <h3>${esc(p.name)}</h3>
-        <p class="pkg__price">${money(p.perStudent)} <small>за ученика</small></p>
+        <p class="pkg__price">${money(p.perStudent)} <small>с человека</small></p>
         <ul>${p.services.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
         <a class="btn${p.featured ? "" : " btn--ghost"}" href="#request" data-pick="${p.id}">Выбрать «${esc(p.name)}»</a>
       </article>`

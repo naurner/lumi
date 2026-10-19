@@ -265,6 +265,8 @@
     $("videoReviews").hidden = false;
   }
   $("schoolList").innerHTML = L.schools.map((s) => `<li>${esc(s)}</li>`).join("");
+  $("schoolsBlock").hidden = !L.schools.length;
+  document.querySelector(".trust").classList.toggle("trust--single", !L.schools.length);
   $("guaranteeList").innerHTML = L.guarantees.map((g) => `<li>${esc(g)}</li>`).join("");
   $("faqList").innerHTML = L.faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("");
 

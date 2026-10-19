@@ -373,6 +373,7 @@ main, .footer { position: relative; z-index: 1; }
 .trust { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 64px; }
 .reviews[hidden] + .videos[hidden] + .trust, .head + .reviews[hidden] ~ .trust { margin-top: 0; }
 .trust h3 { margin-bottom: 16px; }
+.trust--single { grid-template-columns: minmax(0, 720px); }
 .schools { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .schools li { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); font-size: 15px; }
 .guarantees { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }

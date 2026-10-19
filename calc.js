@@ -20,12 +20,13 @@ const CONFIG = {
     ribbons:       750,
     designer:      { fixed: 1500, perPerson: 150 },
     heli:          39000,
+    horse:         2800,                         // конный тур в Чон-Кемин, с человека
     photographerB: 7200,
   },
 };
 
 function calcPrice(answers, cfg = CONFIG) {
-  const { N, R, school, studio, outdoor, ribbons, heli } = answers;
+  const { N, R, school, studio, outdoor, ribbons, heli, horse } = answers;
   const p = cfg.prices;
   const A = N >= cfg.tariffThreshold;
   const issyk = answers.issyk && R >= cfg.issykFrom;
@@ -43,6 +44,7 @@ function calcPrice(answers, cfg = CONFIG) {
   if (ribbons) S += p.ribbons;                                         // 9. ленты
   S += p.designer.fixed / N + p.designer.perPerson;                    // 10. дизайнер
   if (heli) S += p.heli / N;                                           // 11. вертолёт
+  if (horse) S += p.horse;                                             // 11а. конный тур в Чон-Кемин
   if (!A && (school || studio || outdoor)) S += p.photographerB / N;   // 12. фотограф
 
   const exact = Math.round(S * 100) / 100;

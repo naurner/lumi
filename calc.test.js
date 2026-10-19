@@ -48,3 +48,8 @@ test('трансфер к вертолёту: N=18 — одна машина, N=
   assert.ok(Math.abs(t(18) - 8000 / 18) <= 0.011);
   assert.ok(Math.abs(t(19) - 16000 / 19) <= 0.011);
 });
+
+test('конный тур в Чон-Кемин: +2 800 с человека', () => {
+  const base = calcPrice({ N: 20, R: 3 }).exact;
+  assert.equal(calcPrice({ N: 20, R: 3, horse: true }).exact, base + 2800);
+});

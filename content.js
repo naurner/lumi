@@ -121,7 +121,7 @@ window.LUMI = {
   ],
 
   quality: [
-    { title: "Обложки", text: "Твёрдая с фотопечатью, кожзам с тиснением, ткань. Скоро — обложки из дерева и натуральной кожи.", img: "img/albums/split-cover.jpg", label: "Обложка Split", kind: "cover" },
+    { title: "Обложки", text: "Твёрдая с фотопечатью. Скоро — обложки из дерева и натуральной кожи.", img: "img/albums/split-cover.jpg", label: "Обложка Split", kind: "cover" },
     { title: "Бумага и печать", text: "Формат A4 (21 × 30 см). Плотные фотостраницы, печать без брака — или перепечатаем за свой счёт.", img: "img/albums/freedom-graduates.jpg", label: "Разворот Freedom", kind: "texture" },
   ],
 

@@ -65,7 +65,7 @@
 
   // ---------- Калькулятор «Свой пакет» ----------
   // Цены и правила — в calc.js (CONFIG и calcPrice), здесь только форма.
-  const FLAGS = ["transfer", "school", "studio", "issyk", "ribbons", "heli"];
+  const FLAGS = ["transfer", "school", "studio", "issyk", "ribbons", "heli", "horse"];
   const locInputs = [...document.querySelectorAll("#calc input.loc")];
   const outdoorPlaces = () =>
     [...document.querySelectorAll("#calc input[name=outdoorPlace]:checked")].map((el) => el.value);
@@ -129,6 +129,7 @@
       $("studio").checked && "студия",
       ...outdoorPlaces(),
       $("heli").checked && "вертолёт",
+      $("horse").checked && "конный тур в Чон-Кемин",
       $("issyk").checked && "Иссык-Куль",
     ].filter(Boolean);
     lastEstimate = `${N} чел., ${R} ${plural(R, "разворот", "разворота", "разворотов")}${picked.length ? ", " + picked.join(", ") : ""} — ${money(price.perPerson)} с человека`;

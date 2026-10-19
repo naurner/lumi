@@ -46,6 +46,11 @@
     openLightbox(a, a.kind, a.label);
   });
 
+  // ---------- Выпускной вечер и почасовые услуги ----------
+  $("eventList").innerHTML = (L.events || [])
+    .map((e) => `<article class="ev"><h3>${esc(e.title)}</h3><p class="ev__price">${money(e.price)} <small>${esc(e.unit)}</small></p><p class="ev__text">${esc(e.text)}</p></article>`)
+    .join("");
+
   // ---------- Пакеты съёмок ----------
   $("packageList").innerHTML = L.packages
     .map(

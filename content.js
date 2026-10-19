@@ -129,7 +129,7 @@ window.LUMI = {
   locations: [
     { name: "Школа", text: "Снимаем в классах, коридорах и на лестницах — без поездок для детей.", img: "img/locations/school1.jpg" },
     { name: "Студия: интерьер", text: "Светлый зал с диваном и декором — живые групповые кадры.", img: "img/locations/interior1.jpg" },
-    { name: "Студия: циклорама", text: "Чистый фон и студийный свет — портреты для личных страниц.", img: "img/locations/cyclo1.jpg" },
+    { name: "Студия: циклорама", text: "Чистый фон и студийный свет — портреты для личных страниц.", img: "img/locations/cyclo-trio.jpg" },
     { name: "Гольф-клуб", text: "Зелёные поля, горы на горизонте и гольф-кары.", img: "img/locations/golf3.jpg" },
     { name: "Теннисный корт", text: "Белая форма, ракетки и яркий корт — спортивные кадры класса.", img: "img/locations/tennis1.jpg" },
     { name: "Ала-Арча", text: "Горы и снежные вершины — выездная съёмка с трансфером.", img: "img/locations/alaarcha2.jpg" },

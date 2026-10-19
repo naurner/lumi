@@ -246,11 +246,12 @@
 
   $("locationList").innerHTML = L.locations
     .filter((l) => l.img)
-    .map((l) => {
-      // pos — какая часть вертикального кадра видна в горизонтальной карточке (головы не срезать)
-      const ph = l.pos ? photo(l, "scene").replace("<img ", `<img style="object-position:${esc(l.pos)}" `) : photo(l, "scene");
-      return `<article class="loc">${ph}<h3>${esc(l.name)}</h3><p>${esc(l.text)}</p></article>`;
-    })
+    .map((l) => `<article class="loc">
+        <div class="loc__ph">
+          <img class="loc__bg" src="${esc(l.img)}" alt="" aria-hidden="true" loading="lazy">
+          <img class="loc__img" src="${esc(l.img)}" alt="${esc(l.name)}" loading="lazy">
+        </div>
+        <h3>${esc(l.name)}</h3><p>${esc(l.text)}</p></article>`)
     .join("");
 
   $("teamList").innerHTML = L.team

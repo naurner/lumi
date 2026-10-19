@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
   <div class="watermark" aria-hidden="true"><span>L</span><span>U</span><span>M</span><span>I</span></div>
@@ -57,12 +57,21 @@
         <h2>Наши работы</h2>
         <p>Готовые альбомы целиком — портреты, общие кадры класса и развороты.</p>
       </div>
+      <div class="live">
+        <h3>Альбомы вживую</h3>
+        <div class="live__grid">
+          <button class="zoom live__a" data-live="img/live/fan.jpg" aria-label="Три обложки выпускных альбомов в руках"><img src="img/live/fan.jpg" alt="Три обложки выпускных альбомов в руках" loading="lazy" width="1067" height="1600"></button>
+          <button class="zoom live__b" data-live="img/live/spread.jpg" aria-label="Открытый разворот альбома и отдельное фото"><img src="img/live/spread.jpg" alt="Открытый разворот альбома и отдельное фото" loading="lazy" width="1600" height="1066"></button>
+          <button class="zoom live__c" data-live="img/live/stack.jpg" aria-label="Стопка готовых альбомов"><img src="img/live/stack.jpg" alt="Стопка готовых альбомов" loading="lazy" width="1067" height="1600"></button>
+        </div>
+      </div>
       <div class="projects" id="projects"></div>
 
       <div class="split" id="worksExtra">
         <div id="baBlock">
           <h3>Ретушь: до и после</h3>
-          <p class="muted">Потяните ползунок — так мы обрабатываем каждый портрет.</p>
+          <p class="muted">Потяните ползунок: слева оригинал с камеры, справа — после нашей обработки.</p>
+          <div class="ba__pairs" id="baPairs"></div>
           <div class="ba" id="beforeAfter">
             <div class="ba__img ba__before" id="baBefore"></div>
             <div class="ba__img ba__after" id="baAfter"></div>
@@ -317,8 +326,8 @@
     <p id="lightboxCaption"></p>
   </dialog>
 
-  <script src="content.js?v=8"></script>
-  <script src="calc.js?v=8"></script>
-  <script src="app.js?v=8"></script>
+  <script src="content.js?v=10"></script>
+  <script src="calc.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

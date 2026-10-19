@@ -190,11 +190,12 @@ main, .footer { position: relative; z-index: 1; }
 .split--single { grid-template-columns: minmax(0, 720px); }
 @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
 
-.ba { --pos: 50%; position: relative; aspect-ratio: 4 / 3; border-radius: var(--r); overflow: hidden; }
+.ba { --pos: 50%; --ar: 4 / 3; --arn: 1.333; position: relative; aspect-ratio: var(--ar); width: min(100%, calc(78vh * var(--arn))); margin-inline: auto; border-radius: var(--r); overflow: hidden; }
 .ba__img { position: absolute; inset: 0; display: grid; place-items: center; }
 .ba__img img { width: 100%; height: 100%; object-fit: cover; }
 .ba__img svg { width: 50%; fill: none; stroke-width: 1.4; }
-.ba__before { background: #3b3f3e; filter: grayscale(1) contrast(.7); }
+.ba__before { background: #3b3f3e; }
+.ba__before:not(:has(img)) { filter: grayscale(1) contrast(.7); }
 .ba__before svg { stroke: #9a9f9e; }
 .ba__after { background: radial-gradient(90% 90% at 40% 30%, #1d5054, #081011); clip-path: inset(0 0 0 var(--pos)); }
 .ba__after svg { stroke: var(--teal); }
@@ -449,3 +450,21 @@ main, .footer { position: relative; z-index: 1; }
 .lightbox .ph--img img { max-height: 80vh; object-fit: contain; }
 .lightbox p { margin-top: 12px; color: var(--muted); }
 .lightbox__close { position: absolute; top: -48px; right: 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: #000; color: var(--text); font-size: 24px; cursor: pointer; }
+
+/* ---------- Альбомы вживую ---------- */
+.live { margin-bottom: 56px; }
+.live h3 { margin-bottom: 16px; }
+.live__grid { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 12px; height: clamp(320px, 42vw, 520px); }
+.live__grid .zoom { height: 100%; overflow: hidden; border-radius: 10px; }
+.live__grid img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+@media (max-width: 760px) {
+  .live__grid { grid-template-columns: 1fr 1fr; height: auto; }
+  .live__b { grid-column: 1 / -1; order: -1; }
+  .live__grid .zoom { aspect-ratio: 2 / 3; }
+  .live__b.zoom { aspect-ratio: 3 / 2; }
+}
+
+.ba__pairs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.ba__pairs:empty { display: none; }
+.ba__pairs button { min-height: 40px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--text); font: 500 14px var(--body); cursor: pointer; }
+.ba__pairs button[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: #001a18; }

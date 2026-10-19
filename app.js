@@ -193,14 +193,26 @@
   });
 
   // До / после
-  const ba = L.beforeAfter;
-  $("baBefore").innerHTML = ba.before ? `<img src="${esc(ba.before)}" alt="До ретуши">` : art.portrait;
-  $("baAfter").innerHTML = ba.after ? `<img src="${esc(ba.after)}" alt="После ретуши">` : art.portrait;
+  const pairs = (Array.isArray(L.beforeAfter) ? L.beforeAfter : [L.beforeAfter]).filter((p) => p.before && p.after);
   const setBa = (v) => $("beforeAfter").style.setProperty("--pos", v + "%");
+  function showPair(i) {
+    const p = pairs[i];
+    $("baBefore").innerHTML = `<img src="${esc(p.before)}" alt="${esc(p.label)} — до обработки">`;
+    $("baAfter").innerHTML = `<img src="${esc(p.after)}" alt="${esc(p.label)} — после обработки">`;
+    $("beforeAfter").style.setProperty("--ar", `${p.w || 4} / ${p.h || 3}`);
+    $("beforeAfter").style.setProperty("--arn", (p.w || 4) / (p.h || 3));
+    $("baRange").value = 50;
+    setBa(50);
+    document.querySelectorAll("#baPairs button").forEach((b, j) => b.setAttribute("aria-pressed", j === i));
+  }
   $("baRange").addEventListener("input", (e) => setBa(e.target.value));
-  setBa(50);
+  if (pairs.length > 1) {
+    $("baPairs").innerHTML = pairs.map((p, i) => `<button type="button" data-i="${i}">${esc(p.label)}</button>`).join("");
+    $("baPairs").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) showPair(+b.dataset.i); });
+  }
+  if (pairs.length) showPair(0);
   // Пустые блоки не показываем: заглушка на живом сайте хуже, чем её отсутствие.
-  const hasBa = Boolean(ba.before && ba.after);
+  const hasBa = pairs.length > 0;
   const hasVideo = L.videos.some((v) => v.video);
   $("baBlock").hidden = !hasBa;
   $("videoBlock").hidden = !hasVideo;
@@ -338,6 +350,14 @@
       btn.textContent = "Отправить заявку";
     }
   });
+
+  // Альбомы вживую — те же фото крупно
+  document.querySelectorAll("[data-live]").forEach((b) =>
+    b.addEventListener("click", () => {
+      const label = b.getAttribute("aria-label");
+      openLightbox({ img: b.dataset.live, label }, "group", label);
+    })
+  );
 
   // ---------- Лайтбокс ----------
   const lb = $("lightbox");

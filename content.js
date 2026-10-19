@@ -99,8 +99,12 @@ window.LUMI = {
     },
   ],
 
-  // Пара «до / после» для слайдера. Пока пусто — блок скрыт.
-  beforeAfter: { before: "", after: "" },
+  // Пары «до / после» для слайдера: before — оригинал, after — после обработки.
+  beforeAfter: [
+    { label: "Класс", before: "img/retouch/group-before.jpg", after: "img/retouch/group-after.jpg", w: 3, h: 2 },
+    { label: "Портрет", before: "img/retouch/peace-before.jpg", after: "img/retouch/peace-after.jpg", w: 2, h: 3 },
+    { label: "Гольф", before: "img/retouch/golf-before.jpg", after: "img/retouch/golf-after.jpg", w: 2, h: 3 },
+  ],
 
   // Видео. Пока ни у одного нет ссылки — блок скрыт.
   videos: [

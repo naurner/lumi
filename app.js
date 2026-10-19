@@ -93,7 +93,7 @@
     locInputs.forEach((el) => (el.disabled = limitReached && !el.checked));
 
     // Трансфер — только к студии или выездной локации; при первой локации включается сам.
-    const transferAvailable = $("studio").checked || outdoorPlaces().length > 0;
+    const transferAvailable = $("studio").checked || outdoorPlaces().length > 0 || $("heli").checked;
     $("transfer").disabled = !transferAvailable;
     if (!transferAvailable) $("transfer").checked = false;
     else if (!hadLocation) $("transfer").checked = true;

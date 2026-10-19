@@ -10,7 +10,7 @@ const CONFIG = {
   roundingEnding: 90,       // цена округляется вверх до окончания на 90
 
   prices: {
-    transfer:      { A: 525, B: 8000 },          // A — с человека, B — на класс
+    transfer:      { perBus: 8000, seats: 18 },  // машина на каждые 18 человек, делится на всех
     spread:        150,                          // за разворот с человека
     layout:        { A: 220, B: 250 },
     studio:        { surchargeA: 400, rent: 11700 },
@@ -29,10 +29,10 @@ function calcPrice(answers, cfg = CONFIG) {
   const p = cfg.prices;
   const A = N >= cfg.tariffThreshold;
   const issyk = answers.issyk && R >= cfg.issykFrom;
-  const transfer = answers.transfer && (studio || outdoor);  // трансфер только к студии или локации
+  const transfer = answers.transfer && (studio || outdoor || heli);  // трансфер — к студии, локации или вертолёту
 
   let S = 0;
-  if (transfer) S += A ? p.transfer.A : p.transfer.B / N;              // 1. трансфер
+  if (transfer) S += Math.ceil(N / p.transfer.seats) * p.transfer.perBus / N; // 1. трансфер
   S += R * p.spread;                                                   // 2. развороты
   if (R >= cfg.layoutSurchargeFrom) S += A ? p.layout.A : p.layout.B;  // 3. доплата за вёрстку
                                                                        // 4. школа: 0

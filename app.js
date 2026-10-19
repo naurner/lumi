@@ -245,6 +245,7 @@
     .join("");
 
   $("locationList").innerHTML = L.locations
+    .filter((l) => l.img)
     .map((l) => {
       // pos — какая часть вертикального кадра видна в горизонтальной карточке (головы не срезать)
       const ph = l.pos ? photo(l, "scene").replace("<img ", `<img style="object-position:${esc(l.pos)}" `) : photo(l, "scene");
